@@ -1,0 +1,33 @@
+class Solution {
+       List<String> ans=new ArrayList<>();
+    public List<String> addOperators(String num, int target) {
+      fun(num,target,"",(long)0,(long)0);	
+	  return ans;
+	}
+	private  void fun(String num, int target, String str, long cur, long last) {
+		if(num.length()==0&&cur==target)
+		{
+			ans.add(str);
+			return;
+		}
+		for(int i=1;i<=num.length();i++)
+		{
+			String n=num.substring(0,i);
+		
+		if(n.length()>1&&n.charAt(0)=='0')
+			return;
+		long rr=Long.parseLong(n);
+		String k=num.substring(i);
+		if(str.length()==0)
+		{
+			fun(k,target,n,rr,rr);
+		}else {
+            fun(k,target,str+"*"+rr,(cur-last)+last*rr,last*rr);
+			fun(k,target,str+"+"+rr,cur+rr,rr);
+			fun(k,target,str+"-"+rr,cur-rr,-rr);
+			
+		}
+	}
+        
+    }
+}

@@ -1,0 +1,64 @@
+class Solution {
+    public List<String> fullJustify(String[] words, int maxWidth) {
+      List<String> ans=new ArrayList<>();
+	   List<String> rea=new ArrayList<>();
+	   int zlen=0;
+	   for(String s:words)
+	   {
+		   if(zlen+s.length()+ans.size()>maxWidth) {
+			   String str=ans.get(0);
+			   int k=maxWidth-zlen;
+			   int qj=ans.size()-1;
+			   if(ans.size()==1)
+			   {
+				  for(int i=0;i<k;i++)
+					  str+=" ";
+				  rea.add(str);
+				  ans.remove(0);
+				  ans.add(s);
+				  zlen=s.length();
+				  continue;
+			   }else {
+				   int yuk=k%qj==0?0:k%qj;
+				   int pjk=k/qj;
+				   for(int i=1;i<ans.size();i++)
+				   {
+					    String sr=ans.get(i);
+					   for(int j=0;j<pjk;j++)
+					   {
+						   str+=" ";
+					   }
+					   str+=yuk--<=0?"":" ";
+					   str+=ans.get(i);
+				   }
+				   rea.add(str);
+				   ans=new ArrayList<>();
+				   ans.add(s);
+				   zlen=s.length();
+				   continue;
+			   }
+		   }
+		   else {
+			   ans.add(s);
+			   zlen+=s.length();
+		   }
+	   }
+	   if(!ans.isEmpty())
+	   {
+		   String ss=ans.get(0);
+		   for(int i=1;i<ans.size();i++)
+		   {
+			   ss+=" "+ans.get(i);
+			   
+		   }
+		   int  myu=maxWidth-ss.length();
+		   for(int i=0;i<myu;i++)
+		   {
+			   ss+=" ";
+		   }
+		   rea.add(ss);
+	   }
+	  
+        return rea;
+    }
+}
