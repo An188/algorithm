@@ -1,0 +1,41 @@
+class Solution {
+    public String decodeString(String s) {
+      Stack<String> stack=new Stack<>();
+	        for(int i=0;i<s.length();i++)
+	        {
+	            char ch=s.charAt(i);
+	            if(ch!=']')
+	            {
+	             String stt=""+ch;
+	            stack.push(stt);
+	            }
+	            else{
+	            	String str="";
+	    			while(!stack.peek().equals("[")) {
+	    				str=stack.pop()+str;
+	    			}
+	    			stack.pop(); //取出“[”
+	                String num="";
+	                while(!stack.isEmpty()&&stack.peek().charAt(0)>='0'&&stack.peek().charAt(0)<='9')
+	                {
+	                    num=stack.pop()+num;
+	                    
+	                }
+	                int val=Integer.parseInt(num);
+	                String ss="";
+	                for(int j=0;j<val;j++)
+	                {
+	                    ss=str+ss;
+	                }
+	                stack.push(ss);
+	            }
+	        }
+	        String qq="";
+	        for(String srr:stack)
+	        {
+	            qq+=srr;
+	        }
+	  
+   return qq;
+    }
+}

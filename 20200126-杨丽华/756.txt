@@ -1,0 +1,50 @@
+class Solution {
+  private  Map<String,List<String>> map=new HashMap<>();
+    public boolean pyramidTransition(String bottom, List<String> allowed) {
+        
+        for(String ss:allowed)
+        {
+            String kk=ss.substring(0,2);
+            List<String> val=map.get(kk);
+            if (null == val) {
+                val = new LinkedList<>();
+            }
+            val.add(ss.substring(2));
+           
+            map.put(kk,val);
+        }
+       return  dfs(bottom);
+    }
+    private boolean dfs(String ss)
+    {
+        if(ss.length()==1)
+        return true;
+        List<List<String>> p=new LinkedList<>();
+        for(int i=1;i<ss.length();i++)
+        {
+            String kk=ss.substring(i-1,i+1);
+            if(!map.containsKey(kk))
+            return false;
+            p.add(map.get(kk));
+        }
+        List<String> bb=new LinkedList<>();
+        concat(p,"",bb,0);
+        for(String s:bb)
+        {
+            if(dfs(s))
+            return true;
+        }
+        return false;
+    }
+    private void concat(List<List<String>> p,String s,List<String> bb,int index)
+    {
+        if(index>=p.size())
+          { bb.add(s);
+            return;
+          }
+      for(String ss:p.get(index))
+      {
+          concat(p,s.concat(ss),bb,index+1);
+      }
+    }
+}

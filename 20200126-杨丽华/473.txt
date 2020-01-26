@@ -1,0 +1,26 @@
+class Solution {
+    public boolean makesquare(int[] nums) {
+        if(nums.length==0) return false;
+        int sum=0;
+        for(int i=0;i<nums.length;i++)
+            sum+=nums[i];
+            if(sum/4*4!=sum) return false;
+            else return dfs(nums,0,nums.length,0,0,0,0,sum/4);
+    }
+    private boolean dfs(int nums[],int index,int end,int a1,int a2,int a3,int a4,int sum)
+    {
+        if(index==end)
+        {
+            if(a1==sum&&a2==sum&&a3==sum&&a4==sum)
+              return true;
+           
+        }
+        if(a1>sum||a2>sum||a3>sum||a4>sum) return false;
+        else 
+         return   dfs(nums,index+1,end,a1+nums[index],a2,a3,a4,sum)||
+           dfs(nums,index+1,end,a1,a2+nums[index],a3,a4,sum)||
+          dfs(nums,index+1,end,a1,a2,a3+nums[index],a4,sum)||
+          dfs(nums,index+1,end,a1,a2,a3,a4+nums[index],sum);
+        
+    }
+}
