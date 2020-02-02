@@ -1,0 +1,45 @@
+class Solution {
+    
+    int m, n;
+    private int d[][] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    private boolean[][] b;
+
+    public boolean exist(char[][] board, String word) {
+        
+        m = board.length;
+       
+        n = board[0].length;
+      b = new boolean[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (dfs(board, word, 0, i, j)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    
+    private boolean dfs(char[][] board, String word, int index, int x, int y) {
+        
+        if (index == word.length() - 1) {
+            return word.charAt(index) == board[x][y];
+        }
+        if (board[x][y] == word.charAt(index))  {
+            b[x][y] = true;
+            for (int i = 0; i < 4; i++) {
+                int dx = x + d[i][0];
+                int dy = y + d[i][1];
+                if (dx >= 0 && dx < m && dy >= 0 && dy < n&& !b[dx][dy]) {
+                    if( dfs(board, word, index + 1, dx, dy)) {
+                    return true;}
+                }
+            }
+           b[x][y] = false;
+        }
+        return false;
+    }
+  
+    
+}
