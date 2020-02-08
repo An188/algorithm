@@ -1,0 +1,45 @@
+class Solution {
+    char a[][];
+    boolean col[],zchi[],cchi[];
+	List<List<String>> ans=new ArrayList<>();
+    public List<List<String>> solveNQueens(int n) {
+    a=new char[n][n];
+	col=new boolean [n];
+	zchi=new boolean[2*n];
+	cchi=new boolean[2*n];
+	dfs(0,n);
+	return ans;
+	}
+	private  void dfs(int m,int n) {
+		// TODO Auto-generated method stub
+		if(m==n)
+		{ List<String> rea=new ArrayList<>();
+			for(int i=0;i<n;i++)
+			{	String s="";
+			  
+				for(int j=0;j<n;j++)
+				{
+					if(a[i][j]!='Q')
+						a[i][j]='.';
+				 s+=a[i][j];
+				}
+				rea.add(s);
+			}	
+			ans.add(rea);
+			return;
+		}
+		for(int i=0;i<n;i++)
+		if(!col[i]&&!zchi[m-i+n]&&!cchi[m+i])
+		{
+			col[i]=true;
+			zchi[m-i+n]=true;
+			cchi[m+i]=true;
+			a[m][i]='Q';
+			dfs(m+1,n);
+			col[i]=false;
+			zchi[m-i+n]=false;
+			cchi[m+i]=false;
+			a[m][i]='.';
+		}
+	}
+}

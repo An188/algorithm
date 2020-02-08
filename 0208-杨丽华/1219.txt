@@ -1,0 +1,37 @@
+class Solution {
+       int map[][] = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 }};
+        boolean b[][];
+        int m,n,max=0;
+    public int getMaximumGold(int[][] grid) {
+    m=grid.length; n=grid[0].length;
+		 b=new boolean[m][n];
+		for(int i=0;i<m;i++)
+			for(int j=0;j<n;j++)
+			{
+				if(grid[i][j]!=0)
+				{
+					b[i][j]=true;
+					dfs(i,j,0,grid);
+					b[i][j]=false;
+				}
+			}
+		return max;
+	}
+	private  void dfs(int x, int y, int k,int grid[][]) {
+		// TODO Auto-generated method stub
+		k=k+grid[x][y];
+		max=Math.max(max, k);
+		for(int i=0;i<4;i++)
+		{
+			int dx=x+map[i][0];
+			int dy=y+map[i][1];
+			if(dx>=0&&dy>=0&&dx<m&&dy<n&&!b[dx][dy]&&grid[dx][dy]!=0)
+			{
+				b[dx][dy]=true;
+				dfs(dx,dy,k,grid);
+				b[dx][dy]=false;
+			}
+		}
+		
+	}
+}

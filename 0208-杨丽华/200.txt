@@ -1,0 +1,32 @@
+class Solution {
+    int map[][]= {{1,0},{-1,0},{0,1},{0,-1}};
+    int num=0,m,n;
+    public int numIslands(char[][] grid) {
+        if(grid.length==0||grid[0].length==0) return 0;
+    m=grid.length; n=grid[0].length;
+        for(int i=0;i<m;i++)
+        for(int j=0;j<n;j++)
+        {
+            if(grid[i][j]=='1')
+            {  dfs(i,j,grid);
+               num++;
+            }
+        }
+        return num;
+    }
+    private void dfs(int x,int y,char [][]grid)
+    {
+         
+       if(x<0||y<0||x>m-1||y>n-1||grid[x][y]=='2'||grid[x][y]=='0'){
+            return;
+        }
+          grid[x][y]='2';
+          for(int i=0;i<4;i++)
+          {
+              int dx=x+map[i][0];
+              int dy=y+map[i][1];
+              dfs(dx,dy,grid);
+          }
+          
+    }
+}

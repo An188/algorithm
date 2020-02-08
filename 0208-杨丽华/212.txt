@@ -1,0 +1,55 @@
+class Solution {
+    private int map[][]={{-1,0},{0,-1},{1,0},{0,1}};
+    private List<String> ans=new ArrayList<>();
+    private int n,m;
+    private boolean used[][];
+    private char [][]board;
+    private String s;
+    public List<String> findWords(char[][] board, String[] words) {
+       this.n=board.length;
+       this.m=board[0].length;
+       this.board=board;
+       for(int i=0;i<words.length;i++)
+       {
+           this.used=new boolean[n][m]; ;
+           this.s=words[i];
+        ff:   for(int j=0;j<n;j++)
+           for(int k=0;k<m;k++)
+           {
+               if(dfs(j,k,0))
+               {
+                   ans.add(s);
+                   break ff;
+               }
+           }
+       }
+     return ans;
+    }
+    private boolean dfs(int x,int y,int index)
+    {
+       
+        boolean q = board[x][y] == s.charAt(index);
+        if(!q){
+            return false;
+        }
+        if(index == s.length() - 1){
+            return q;
+        }
+        
+        used[x][y] = true;
+        for(int i = 0; i < 4; i++){
+            int dx = x + map[i][0];
+            int dy = y + map[i][1];
+            if( dx>=0&&dy>=0&&dx<n&&dy<m&& !used[dx][dy]){
+                if(dfs(dx,dy,index + 1)){
+                    return true;
+                }
+            }
+        }
+        used[x][y] = false;
+
+        return false;
+    }
+
+
+}
