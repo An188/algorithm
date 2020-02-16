@@ -1,0 +1,53 @@
+import java.util.Scanner;
+
+public class Main {
+	static int a[] = new int[100001];
+	static int n, ans=1,t;
+	static int f[] = new int[100001];
+	static int b[]=new int[100001];
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner in = new Scanner(System.in);
+		while (in.hasNextInt()) {
+			a[++n] = in.nextInt();
+		}	
+		for (int i = 1; i <=n; i++) {
+			
+			f[i]=1;
+			for(int j=t;j>=1;j--)
+			{
+				if(a[i]<=a[b[j]])
+				{
+					f[i]=f[b[j]]+1;
+					break;
+				}
+			}
+			t=Math.max(t,f[i]);
+			b[f[i]]=i;
+			ans = Math.max(f[i], ans);
+			
+		}
+		System.out.println(ans);
+		ans=1;
+		t=0;
+		
+for (int i = 1; i <=n; i++) {
+			
+			f[i]=1;
+			for(int j=t;j>=1;j--)
+			{
+				if(a[i]>a[b[j]])
+				{
+					f[i]=f[b[j]]+1;
+					break;
+				}
+			}
+			t=Math.max(t,f[i]);
+			b[f[i]]=i;
+			ans = Math.max(f[i], ans);
+			
+		}
+		System.out.println(ans);
+
+	}
+}

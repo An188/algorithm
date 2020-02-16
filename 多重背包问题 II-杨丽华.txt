@@ -1,0 +1,36 @@
+
+import java.util.*;
+
+public class Main {
+   static int vi[],wi[],dp[],si[];
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n=in.nextInt();
+        int v=in.nextInt();
+        vi=new int[n+1];
+        wi=new int[n+1];
+        si=new int[n+1];
+        dp=new int[v+1];
+        for(int i=1;i<=n;i++)
+        {
+        	vi[i]=in.nextInt();
+        	wi[i]=in.nextInt();
+        	si[i]=in.nextInt();
+        }
+        int max=0;
+        for(int i=1;i<=n;i++)
+        {
+        	for(int j=v;j>=0;j--)
+        	{
+
+        		int t=0;
+        		while(t<=si[i]&&t*vi[i]<=j)
+        		{
+        			dp[j]=Math.max(dp[j], dp[j-t*vi[i]]+t*wi[i]);
+        			t++;
+        		}
+        	}
+        }
+        System.out.println(dp[v]);
+    }
+}

@@ -1,0 +1,39 @@
+
+import java.util.*;
+
+public class Main {
+   static int dp[],a[][];
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n=in.nextInt();
+        a=new int[n][2];
+        dp=new int[n];
+        for(int i=0;i<n;i++)
+        {
+        	a[i][0]=in.nextInt();
+        	a[i][1]=in.nextInt();
+        }
+       Arrays.sort(a,new Comparator<int[]>() {
+
+		@Override
+		public int compare(int[] o1, int[] o2) {
+			// TODO Auto-generated method stub
+		if(o1[0]==o2[0])
+			return o1[1]-o2[1];
+		else	return o1[0]-o2[0];
+		}
+       });
+       int max=0;
+     for(int i=1;i<n;i++)
+     { for(int j=0;j<i;j++)
+    	 {
+    		 if(a[j][1]>a[i][1])
+    			 dp[i]=Math.max(dp[j]+1, dp[i]);
+    	 }
+     max=Math.max(max, dp[i]);
+     }
+        System.out.println(max+1);
+    
+	
+	}
+}
